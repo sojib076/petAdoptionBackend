@@ -7,11 +7,11 @@ const express_1 = __importDefault(require("express"));
 const globalErrorhandler_1 = __importDefault(require("./middlewares/globalErrorhandler"));
 const routes_1 = __importDefault(require("./routes"));
 const notFound_1 = __importDefault(require("./middlewares/notFound"));
-// import { MovieRoutes } from "./modules/movies/movies.route";
 const cors_1 = __importDefault(require("cors"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
-//parsers
 app.use(express_1.default.json());
+app.use((0, cookie_parser_1.default)());
 app.use((0, cors_1.default)());
 // application routes
 app.use('/api/v1', routes_1.default);

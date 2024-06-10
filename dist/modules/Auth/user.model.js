@@ -14,8 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserSignup = void 0;
 const mongoose_1 = require("mongoose");
-const config_1 = __importDefault(require("../config"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const config_1 = __importDefault(require("../../config"));
 const userSignup = new mongoose_1.Schema({
     name: {
         type: String,
@@ -28,7 +28,8 @@ const userSignup = new mongoose_1.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        select: 0
     },
     location: {
         type: String,

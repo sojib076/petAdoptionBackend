@@ -19,7 +19,6 @@ let server;
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(config_1.default.db_url);
             yield mongoose_1.default.connect(config_1.default.db_url);
             server = app_1.default.listen(config_1.default.port, () => {
                 console.log(`app is listening on port ${config_1.default.port}`);

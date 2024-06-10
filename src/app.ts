@@ -2,13 +2,16 @@ import express, { Application, Request, Response } from "express";
 import globalErrorHandler from "./middlewares/globalErrorhandler";
 import router from "./routes";
 import notFound from "./middlewares/notFound";
-
-// import { MovieRoutes } from "./modules/movies/movies.route";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+
+
+
 const app: Application= express();
 
-//parsers
 app.use(express.json());
+app.use(cookieParser());
+
 app.use(cors());
 
 // application routes

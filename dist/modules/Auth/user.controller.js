@@ -13,12 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userControllers = void 0;
-const asyncHandler_1 = require("../utils/asyncHandler");
-const sendResponse_1 = __importDefault(require("../utils/sendResponse"));
+const asyncHandler_1 = require("../../utils/asyncHandler");
+const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const user_service_1 = require("./user.service");
 const signupUser = (0, asyncHandler_1.asyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password, location } = req.body.user;
-    const resutl = yield user_service_1.userServices.signupUser(name, email, password, location);
+    const resutl = yield user_service_1.userServices.signupUser(req);
     (0, sendResponse_1.default)(res, { statusCode: 201,
         success: true,
         message: 'User signed up successfully',
@@ -27,16 +26,26 @@ const signupUser = (0, asyncHandler_1.asyncHandler)((req, res) => __awaiter(void
 }));
 const loginUser = (0, asyncHandler_1.asyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body.user;
-    const resutl = yield user_service_1.userServices.loginUser(email, password);
-    (0, sendResponse_1.default)(res, { statusCode: 201,
+    console.log(req.body);
+    const result = yield user_service_1.userServices.loginUser(email, password);
+    const { token, findUser } = result;
+    res.cookie('token', token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'none',
+    });
+    (0, sendResponse_1.default)(res, {
+        statusCode: 201,
         success: true,
         message: 'User Login successfully',
-        data: resutl
+        data: {
+            token,
+            findUser
+        }
     });
 }));
 const findsinlgeUser = (0, asyncHandler_1.asyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const email = req.params.sinlgeuser;
-    const resutl = yield user_service_1.userServices.findsinlgeUser(email);
+    const resutl = yield user_service_1.userServices.findsinlgeUser(req);
     (0, sendResponse_1.default)(res, { statusCode: 201,
         success: true,
         message: 'Single User found successfully',
