@@ -32,9 +32,10 @@ const AppError_1 = __importDefault(require("../../error/AppError"));
 const config_1 = __importDefault(require("../../config"));
 const signupUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, password, location } = req.body.user;
-    const user = yield user_model_1.UserSignup.create({ name, email: email, password: password, location: location, });
+    const user = yield user_model_1.UserSignup.create({ name: name, email: email, password: password, location: location, });
     const tokenPayload = {
         id: user._id,
+        name: user.name,
         email: user.email,
         role: user.role,
     };
@@ -51,6 +52,7 @@ const loginUser = (email, password) => __awaiter(void 0, void 0, void 0, functio
     const isMatch = yield bcrypt_1.default.compare(password, findUser.password);
     const tokenPayload = {
         id: findUser._id,
+        name: findUser.name,
         email: findUser.email,
         role: findUser.role,
     };

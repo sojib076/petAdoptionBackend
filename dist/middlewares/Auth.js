@@ -24,7 +24,7 @@ const Auth = () => {
             throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'You are not authorized!');
         }
         let token = authHeader;
-        if (authHeader.startsWith('Bearer ')) {
+        if (authHeader.startsWith('Bearer')) {
             token = authHeader.substring(7, authHeader.length);
         }
         try {

@@ -8,10 +8,11 @@ import { Request } from "express";
 
 const signupUser = async(req:Request) => {
     const { name,email, password,location } = req.body.user
-    const user = await UserSignup.create({name,email:email,password:password,location:location,})
-
+    const user = await UserSignup.create({name:name,email:email,password:password,location:location,})
+    
     const tokenPayload = {
         id: user._id,
+        name:user.name,
         email: user.email,
         role: user.role,
     };
@@ -34,6 +35,7 @@ const loginUser = async (email: string, password: string) => {
     const isMatch = await bcrypt.compare(password, findUser.password);
     const tokenPayload = {
         id: findUser._id,
+        name: findUser.name,
         email: findUser.email,
         role: findUser.role,
     };
@@ -74,6 +76,7 @@ const findsinlgeUser = async (req:Request) => {
 }  
 
 
+    
 
 
 export const userServices = {
